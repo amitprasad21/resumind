@@ -123,7 +123,7 @@ Current ATS Score: ${score}`;
         </section>
 
         {/* RIGHT SIDE - FEEDBACK */}
-        <section className="feedback-section">
+        <section className="feedback-section pb-24">
           <h2 className="text-3xl sm:text-4xl !text-black font-bold">
             Resume Review
           </h2>
@@ -208,6 +208,15 @@ Current ATS Score: ${score}`;
           )}
         </section>
       </div>
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-md p-4 z-50">
+        <Link
+          to="/premium#plans"
+          className="w-full block text-center bg-black text-white py-3 rounded-full text-sm font-medium"
+        >
+          Get 80+ ATS Score – ₹499 →
+        </Link>
+      </div>
+
     </main>
   );
 };

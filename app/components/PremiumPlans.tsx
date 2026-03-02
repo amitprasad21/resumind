@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 const plans = [
   {
     name: "Basic",
-    price: 399,
+    price: 299,
     features: [
       "80+ ATS Score",
       "Role/Company Optimized",
-      "3–5 Hours Delivery",
+      "10–12 Hours Delivery",
       "1:1 Consultation",
     ],
   },
@@ -24,7 +24,7 @@ const plans = [
   },
   {
     name: "Premium",
-    price: 1299,
+    price: 999,
     features: [
       "90+ ATS Score Target",
       "Deep Resume Rewrite",
