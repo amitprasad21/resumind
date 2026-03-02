@@ -3,7 +3,7 @@ import Navbar from "~/components/Navbar";
 import ResumeCard from "~/components/ResumeCard";
 import { usePuterStore } from "~/lib/puter";
 import { Link, useNavigate } from "react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -40,32 +40,6 @@ export default function Home() {
     loadResumes();
   }, [kv]);
 
-  const handleDelete = async (resume: Resume) => {
-    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
-
-    setResumes((prev) => prev.filter((item) => item.id !== resume.id));
-    setDeletedResume(resume);
-    await kv.delete(`resume:${resume.id}`);
-
-    undoTimerRef.current = setTimeout(() => {
-      setDeletedResume(null);
-      undoTimerRef.current = null;
-    }, 5000);
-  };
-
-  const handleUndoDelete = async () => {
-    if (!deletedResume) return;
-
-    if (undoTimerRef.current) {
-      clearTimeout(undoTimerRef.current);
-      undoTimerRef.current = null;
-    }
-
-    await kv.set(`resume:${deletedResume.id}`, JSON.stringify(deletedResume));
-    setResumes((prev) => [deletedResume, ...prev]);
-    setDeletedResume(null);
-  };
-
   return (
     <main className="bg-[url('/images/bg-main.svg')] bg-cover">
       <Navbar />
@@ -80,15 +54,6 @@ export default function Home() {
           )}
         </div>
 
-        {deletedResume && (
-          <div className="w-full max-w-md bg-black text-white px-4 py-3 rounded-xl flex items-center justify-between">
-            <p className="text-sm">Resume deleted</p>
-            <button onClick={handleUndoDelete} className="text-sm font-semibold underline">
-              Undo (5s)
-            </button>
-          </div>
-        )}
-
         {loadingResumes && (
           <div className="flex flex-col items-center justify-center">
             <img src="/images/resume-scan-2.gif" className="w-[200px]" />
@@ -97,11 +62,17 @@ export default function Home() {
 
         {!loadingResumes && resumes.length > 0 && (
           <div className="w-full">
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth gap-4 w-full pb-2">
+            <div className="lg:hidden flex overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth w-full">
               {resumes.map((resume) => (
-                <div key={resume.id} className="snap-center shrink-0 w-[280px]">
-                  <ResumeCard resume={resume} onDelete={handleDelete} />
+                <div key={resume.id} className="snap-center shrink-0 w-full px-2">
+                  <ResumeCard resume={resume} />
                 </div>
+              ))}
+            </div>
+
+            <div className="hidden lg:grid lg:grid-cols-4 gap-6 w-full">
+              {resumes.map((resume) => (
+                <ResumeCard key={resume.id} resume={resume} />
               ))}
             </div>
           </div>
