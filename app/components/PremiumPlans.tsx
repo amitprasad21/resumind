@@ -13,7 +13,7 @@ const plans = [
   },
   {
     name: "Pro",
-    price: 699,
+    price: 499,
     popular: true,
     features: [
       "80+ ATS Score",
