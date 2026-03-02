@@ -62,6 +62,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useEffect(() => {
+    usePuterStore.getState().init();
+  }, []);
+
   return <Outlet />;
 }
 
