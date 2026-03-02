@@ -1,9 +1,10 @@
+import type { Route } from "./+types/premium";
 import { Link } from "react-router";
 import Navbar from "~/components/Navbar";
 import PremiumPlans from "~/components/PremiumPlans";
 import { trackPlanClick } from "~/lib/track";
 
-export const meta = () => [
+export const meta = ({}: Route.MetaArgs) => [
   { title: "Resumind | Premium Plans" },
   { name: "description", content: "Premium ATS optimization plans" },
 ];
