@@ -104,7 +104,7 @@ Current ATS Score: ${score}`;
 
       <div className="flex flex-row w-full max-lg:flex-col-reverse">
         {/* LEFT SIDE - RESUME PREVIEW */}
-        <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover lg:h-[100vh] lg:sticky top-0 items-center justify-center">
+        <section className="hidden lg:flex feedback-section bg-[url('/images/bg-small.svg')] bg-cover lg:h-[100vh] lg:sticky top-0 items-center justify-center">
           {imageUrl && resumeUrl && (
             <div className="animate-in fade-in duration-1000 gradient-border h-full max-h-[90vh] w-full lg:w-fit">
               <a
@@ -123,7 +123,7 @@ Current ATS Score: ${score}`;
         </section>
 
         {/* RIGHT SIDE - FEEDBACK */}
-        <section className="feedback-section">
+        <section className="feedback-section pb-28 md:pb-24">
           <h2 className="text-3xl sm:text-4xl !text-black font-bold">
             Resume Review
           </h2>
@@ -208,6 +208,15 @@ Current ATS Score: ${score}`;
           )}
         </section>
       </div>
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-md p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] z-50">
+        <Link
+          to="/premium#plans"
+          className="w-full block text-center bg-black text-white py-3 rounded-full text-sm font-medium"
+        >
+          Get 80+ ATS Score – ₹499 →
+        </Link>
+      </div>
+
     </main>
   );
 };
