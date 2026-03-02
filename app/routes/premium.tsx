@@ -1,8 +1,10 @@
+import type { Route } from "./+types/premium";
 import { Link } from "react-router";
 import Navbar from "~/components/Navbar";
 import PremiumPlans from "~/components/PremiumPlans";
+import { trackPlanClick } from "~/lib/track";
 
-export const meta = () => [
+export const meta = ({}: Route.MetaArgs) => [
   { title: "Resumind | Premium Plans" },
   { name: "description", content: "Premium ATS optimization plans" },
 ];
@@ -13,6 +15,8 @@ const PREMIUM_ATS = 0;
 
 export default function PremiumPage() {
   const handleWhatsApp = (planName: string, price: number, company: string, role: string, atsScore: number) => {
+    trackPlanClick(planName, company, role, atsScore);
+
     const message = `Hi, I am interested in ${planName} (₹${price})\nCompany: ${company}\nRole: ${role}\nCurrent ATS Score: ${atsScore}`;
     const url = `https://wa.me/917029139659?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
