@@ -24,29 +24,29 @@ body {
 }
 
 main {
-  @apply min-h-screen pt-10;
+  @apply min-h-screen pt-6 sm:pt-8;
 }
 h1 {
-  @apply text-6xl  text-gradient leading-tight tracking-[-2px] font-semibold;
+  @apply text-[1.75rem] sm:text-4xl lg:text-[2.8rem] text-gradient leading-tight tracking-[-0.5px] font-semibold;
 }
 
 h2 {
-  @apply text-3xl text-dark-200;
+  @apply text-lg sm:text-xl text-dark-200;
 }
 
 label {
   @apply text-dark-200;
 }
 input {
-  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+  @apply w-full p-3 sm:p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
 }
 
 textarea {
-  @apply w-full p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
+  @apply w-full p-3 sm:p-4 inset-shadow rounded-2xl focus:outline-none bg-white;
 }
 
 form {
-  @apply flex flex-col items-start gap-8 w-full;
+  @apply flex flex-col items-start gap-5 sm:gap-6 w-full;
 }
 
 @layer components {
@@ -57,47 +57,47 @@ form {
     @apply bg-gradient-to-b from-light-blue-100 to-light-blue-200 p-4 rounded-2xl;
   }
   .primary-button {
-    @apply primary-gradient text-white rounded-full px-4 py-2 cursor-pointer w-full;
+    @apply primary-gradient text-white rounded-full px-4 py-2 text-sm cursor-pointer w-full;
   }
   .resume-nav {
-    @apply flex flex-row justify-between items-center p-4 border-b border-gray-200;
+    @apply flex flex-wrap gap-2 justify-between items-center p-3 sm:p-4 border-b border-gray-200;
   }
   .resume-summary {
-    @apply flex flex-row items-center justify-center p-4 gap-4;
+    @apply flex flex-row items-center justify-center p-2 sm:p-4 gap-2 sm:gap-4;
     .category {
-      @apply flex flex-row gap-2 items-center bg-gray-50 rounded-2xl p-4 w-full justify-between;
+      @apply flex flex-col sm:flex-row gap-2 items-start sm:items-center bg-gray-50 rounded-2xl p-3 sm:p-4 w-full justify-between;
     }
   }
   .back-button {
     @apply flex flex-row items-center gap-2 border border-gray-200 rounded-lg p-2 shadow-sm;
   }
   .auth-button {
-    @apply primary-gradient rounded-full py-4 px-8 cursor-pointer w-[600px] max-md:w-full text-3xl font-semibold text-white;
+    @apply primary-gradient rounded-full py-3 sm:py-4 px-6 sm:px-8 cursor-pointer w-full max-w-[520px] text-xl sm:text-2xl font-semibold text-white;
   }
   .main-section {
-    @apply flex flex-col items-center gap-8 pt-12 mx-15 pb-5;
+    @apply flex flex-col items-center gap-6 sm:gap-8 pt-6 sm:pt-10 px-3 sm:px-6 lg:px-10 pb-5;
   }
   .page-heading {
-    @apply flex flex-col items-center gap-8 max-w-4xl text-center;
+    @apply flex flex-col items-center gap-4 sm:gap-6 max-w-4xl text-center w-full;
   }
   .resumes-section {
-    @apply flex flex-wrap max-lg:flex-col gap-6 items-start  w-full max-w-[1850px] justify-evenly;
+    @apply flex w-full gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:overflow-visible md:snap-none;
   }
 
   .resume-card {
-    @apply flex flex-col gap-8 h-[560px] w-full lg:w-[450px] xl:w-[490px] bg-white rounded-2xl p-4;
+    @apply flex-none snap-start flex flex-col gap-4 min-h-[390px] sm:min-h-[430px] w-[82%] sm:w-[56%] md:w-full bg-white rounded-2xl p-3;
   }
 
   .resume-card-header {
-    @apply flex flex-row gap-2 justify-between min-h-[110px] max-sm:flex-col items-center max-md:justify-center max-md:items-center;
+    @apply flex flex-row gap-2 justify-between min-h-[82px] max-sm:flex-col items-center max-md:justify-center max-md:items-center;
   }
 
   .feedback-section {
-    @apply flex flex-col gap-8 w-1/2 px-8 max-lg:w-full py-6;
+    @apply flex flex-col gap-5 sm:gap-7 w-full lg:w-1/2 px-3 sm:px-6 py-4 sm:py-6;
   }
 
   .navbar {
-    @apply flex flex-row justify-between items-center bg-white rounded-full p-4 w-full px-10 max-w-[1200px] mx-auto;
+    @apply flex flex-col sm:flex-row gap-2 sm:gap-0 justify-between items-center bg-white rounded-3xl sm:rounded-full p-3 sm:p-4 w-[calc(100%-1rem)] sm:w-full px-4 sm:px-8 max-w-[1200px] mx-auto;
   }
 
   .score-badge {
@@ -149,4 +149,13 @@ form {
   to {
     opacity: 1;
   }
+}
+
+
+.resumes-section::-webkit-scrollbar {
+  display: none;
+}
+
+.resumes-section {
+  scrollbar-width: none;
 }

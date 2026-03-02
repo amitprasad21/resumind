@@ -43,7 +43,7 @@ export default function Home() {
     <Navbar />
 
     <section className="main-section">
-      <div className="page-heading py-16">
+      <div className="page-heading py-8 sm:py-12">
         <h1>Track Your Applications & Resume Ratings</h1>
         {!loadingResumes && resumes?.length === 0 ? (
             <h2>No resumes found. Upload your first resume to get feedback.</h2>
@@ -67,7 +67,7 @@ export default function Home() {
 
       {!loadingResumes && resumes?.length === 0 && (
           <div className="flex flex-col items-center justify-center mt-10 gap-4">
-            <Link to="/upload" className="primary-button w-fit text-xl font-semibold">
+            <Link to="/upload" className="primary-button w-fit text-base sm:text-lg font-semibold">
               Upload Resume
             </Link>
           </div>
