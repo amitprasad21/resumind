@@ -1,6 +1,5 @@
 import type { Route } from "./+types/premium";
 import { Link } from "react-router";
-import Navbar from "~/components/Navbar";
 import PremiumPlans from "~/components/PremiumPlans";
 import { trackPlanClick } from "~/lib/track";
 
@@ -29,32 +28,29 @@ export default function PremiumPage() {
   };
 
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen flex flex-col items-center px-6 py-24 bg-gradient-to-br from-[#f5f6fa] to-[#e4e7f0]">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-4xl font-bold text-gray-900">
-            Professional Resume Optimization Plans
-          </h1>
+    <main className="min-h-screen flex flex-col items-center px-6 py-24 bg-gradient-to-br from-[#f5f6fa] to-[#e4e7f0]">
+      <div className="text-center max-w-2xl">
+        <h1 className="text-4xl font-bold text-gray-900">
+          Professional Resume Optimization Plans
+        </h1>
 
-          <p className="mt-4 text-gray-600 text-base sm:text-lg">
-            Choose a package to target an 80+ ATS score with expert support.
-          </p>
-        </div>
+        <p className="mt-4 text-gray-600 text-base sm:text-lg">
+          Choose a package to target an 80+ ATS score with expert support.
+        </p>
+      </div>
 
-        <div id="plans" className="mt-10 md:mt-16 max-w-5xl w-full">
-          <PremiumPlans
-            company={PREMIUM_COMPANY}
-            role={PREMIUM_ROLE}
-            atsScore={PREMIUM_ATS}
-            handleWhatsApp={handleWhatsApp}
-          />
-        </div>
+      <div className="mt-10 md:mt-16 max-w-5xl w-full">
+        <PremiumPlans
+          company={PREMIUM_COMPANY}
+          role={PREMIUM_ROLE}
+          atsScore={PREMIUM_ATS}
+          handleWhatsApp={handleWhatsApp}
+        />
+      </div>
 
-        <Link to="/upload" className="primary-button w-fit px-6 sm:px-8 mt-10">
-          Analyze Another Resume
-        </Link>
-      </main>
-    </>
+      <Link to="/upload" className="primary-button w-fit px-6 sm:px-8 mt-10">
+        Analyze Another Resume
+      </Link>
+    </main>
   );
 }

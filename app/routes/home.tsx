@@ -60,11 +60,17 @@ export default function Home() {
 
         {!loadingResumes && resumes.length > 0 && (
           <div className="w-full">
-            <div className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth gap-4 w-full pb-2">
+            <div className="lg:hidden flex overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth w-full">
               {resumes.map((resume) => (
-                <div key={resume.id} className="snap-center shrink-0 w-full sm:w-[360px] lg:w-[280px]">
+                <div key={resume.id} className="snap-center shrink-0 w-full px-2">
                   <ResumeCard resume={resume} />
                 </div>
+              ))}
+            </div>
+
+            <div className="hidden lg:grid lg:grid-cols-4 gap-6 w-full">
+              {resumes.map((resume) => (
+                <ResumeCard key={resume.id} resume={resume} />
               ))}
             </div>
           </div>
