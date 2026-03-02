@@ -42,6 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <script src="https://js.puter.com/v2/"></script>
+        {import.meta.env.PROD && <script defer src="/_vercel/insights/script.js"></script>}
         {children}
         <ScrollRestoration />
         <Scripts />
