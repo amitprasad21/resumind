@@ -104,7 +104,7 @@ Current ATS Score: ${score}`;
 
       <div className="flex flex-row w-full max-lg:flex-col-reverse">
         {/* LEFT SIDE - RESUME PREVIEW */}
-        <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover lg:h-[100vh] lg:sticky top-0 items-center justify-center">
+        <section className="hidden lg:flex feedback-section bg-[url('/images/bg-small.svg')] bg-cover lg:h-[100vh] lg:sticky top-0 items-center justify-center">
           {imageUrl && resumeUrl && (
             <div className="animate-in fade-in duration-1000 gradient-border h-full max-h-[90vh] w-full lg:w-fit">
               <a
@@ -158,7 +158,7 @@ Current ATS Score: ${score}`;
                     }
                     className="mt-4 bg-black text-white px-6 py-2 rounded-lg"
                   >
-                    Upgrade to 80+ ATS Score →
+                    View Optimization Plans →
                   </button>
                 </div>
               )}
@@ -184,7 +184,7 @@ Current ATS Score: ${score}`;
               {/* FOOTER CTA */}
               <div className="mt-6 border-t pt-8 text-center">
                 <h3 className="text-lg font-semibold">
-                  🚀 Need Guaranteed 80+ ATS Score?
+                  🚀 Need Expert Resume Optimization?
                 </h3>
                 <p className="text-sm text-gray-500 mt-2 max-w-xl mx-auto">
                   Get expert resume optimization tailored to your
@@ -208,6 +208,7 @@ Current ATS Score: ${score}`;
           )}
         </section>
       </div>
+
     </main>
   );
 };

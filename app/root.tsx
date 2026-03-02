@@ -9,8 +9,18 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import {usePuterStore} from "~/lib/puter";
-import {useEffect} from "react";
+import { usePuterStore } from "~/lib/puter";
+
+let hasScheduledPuterInit = false;
+
+const schedulePuterInit = () => {
+  if (typeof window === "undefined" || hasScheduledPuterInit) return;
+
+  hasScheduledPuterInit = true;
+  queueMicrotask(() => {
+    usePuterStore.getState().init();
+  });
+};
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -26,12 +36,6 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { init } = usePuterStore();
-
-  useEffect(() => {
-    init()
-  }, [init]);
-
   return (
     <html lang="en">
       <head>
@@ -52,6 +56,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  schedulePuterInit();
   return <Outlet />;
 }
 
