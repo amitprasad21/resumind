@@ -104,7 +104,7 @@ Current ATS Score: ${score}`;
 
       <div className="flex flex-row w-full max-lg:flex-col-reverse">
         {/* LEFT SIDE - RESUME PREVIEW */}
-        <section className="feedback-section bg-[url('/images/bg-small.svg')] bg-cover lg:h-[100vh] lg:sticky top-0 items-center justify-center">
+        <section className="hidden lg:flex feedback-section bg-[url('/images/bg-small.svg')] bg-cover lg:h-[100vh] lg:sticky top-0 items-center justify-center">
           {imageUrl && resumeUrl && (
             <div className="animate-in fade-in duration-1000 gradient-border h-full max-h-[90vh] w-full lg:w-fit">
               <a
