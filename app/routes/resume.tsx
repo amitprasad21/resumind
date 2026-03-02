@@ -123,7 +123,7 @@ Current ATS Score: ${score}`;
         </section>
 
         {/* RIGHT SIDE - FEEDBACK */}
-        <section className="feedback-section pb-28 md:pb-24">
+        <section className="feedback-section pb-24">
           <h2 className="text-3xl sm:text-4xl !text-black font-bold">
             Resume Review
           </h2>
@@ -208,7 +208,7 @@ Current ATS Score: ${score}`;
           )}
         </section>
       </div>
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-md p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] z-50">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-md p-4 z-50">
         <Link
           to="/premium#plans"
           className="w-full block text-center bg-black text-white py-3 rounded-full text-sm font-medium"
