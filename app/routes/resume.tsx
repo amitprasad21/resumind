@@ -158,7 +158,7 @@ Current ATS Score: ${score}`;
                     }
                     className="mt-4 bg-black text-white px-6 py-2 rounded-lg"
                   >
-                    Upgrade to 80+ ATS Score →
+                    View Optimization Plans →
                   </button>
                 </div>
               )}
@@ -184,7 +184,7 @@ Current ATS Score: ${score}`;
               {/* FOOTER CTA */}
               <div className="mt-6 border-t pt-8 text-center">
                 <h3 className="text-lg font-semibold">
-                  🚀 Need Guaranteed 80+ ATS Score?
+                  🚀 Need Expert Resume Optimization?
                 </h3>
                 <p className="text-sm text-gray-500 mt-2 max-w-xl mx-auto">
                   Get expert resume optimization tailored to your
