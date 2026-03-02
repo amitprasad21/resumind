@@ -123,7 +123,7 @@ Current ATS Score: ${score}`;
         </section>
 
         {/* RIGHT SIDE - FEEDBACK */}
-        <section className="feedback-section">
+        <section className="feedback-section pb-24">
           <h2 className="text-3xl sm:text-4xl !text-black font-bold">
             Resume Review
           </h2>
@@ -208,6 +208,7 @@ Current ATS Score: ${score}`;
           )}
         </section>
       </div>
+      
 
     </main>
   );

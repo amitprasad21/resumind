@@ -3,16 +3,12 @@ import ScoreCircle from "~/components/ScoreCircle";
 import { useEffect, useState } from "react";
 import { usePuterStore } from "~/lib/puter";
 
-type ResumeCardProps = {
-  resume: Resume;
-  onDelete: (resume: Resume) => void;
-};
-
-const ResumeCard = ({ resume, onDelete }: ResumeCardProps) => {
+const ResumeCard = ({ resume }: { resume: Resume }) => {
   const { id, companyName, jobTitle, feedback, imagePath } = resume;
   const { fs } = usePuterStore();
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
+  const score = resume.feedback?.ATS?.score || 0;
 
   useEffect(() => {
     const loadResume = async () => {
@@ -52,22 +48,14 @@ const ResumeCard = ({ resume, onDelete }: ResumeCardProps) => {
         )}
       </Link>
 
-      <div className="mt-auto pt-2 flex items-center justify-between gap-3">
+      {score < 75 && (
         <button
-          onClick={() => navigate("/premium#plans")}
-          className="bg-[#3b3b3f] text-white px-4 py-1.5 rounded-full text-xs font-medium hover:bg-[#4a4a50] transition"
+          onClick={() => navigate(`/resume/${resume.id}`)}
+          className="mt-4 w-full bg-black text-white py-2 rounded-xl hover:bg-gray-800 transition"
         >
-          Improve ATS
+          Improve ATS Score →
         </button>
-
-        <button
-          onClick={() => onDelete(resume)}
-          className="w-7 h-7 rounded-full bg-[#1c1c1f] border border-gray-700 hover:bg-[#2a2a2e] transition flex items-center justify-center"
-          aria-label="Delete resume"
-        >
-          <img src="/icons/cross.svg" alt="delete" className="w-3 h-3" />
-        </button>
-      </div>
+      )}
     </div>
   );
 };
