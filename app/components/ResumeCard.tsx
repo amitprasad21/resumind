@@ -1,67 +1,61 @@
+import { Link, useNavigate } from "react-router";
+import ScoreCircle from "~/components/ScoreCircle";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { usePuterStore } from "~/lib/puter";
 
-type ResumeCardProps = {
-  resume: Resume;
-  onDelete: (resume: Resume) => void;
-};
-
-const ResumeCard = ({ resume, onDelete }: ResumeCardProps) => {
-  const { companyName, jobTitle, imagePath } = resume;
+const ResumeCard = ({ resume }: { resume: Resume }) => {
+  const { id, companyName, jobTitle, feedback, imagePath } = resume;
   const { fs } = usePuterStore();
   const navigate = useNavigate();
   const [resumeUrl, setResumeUrl] = useState("");
   const score = resume.feedback?.ATS?.score || 0;
-  const scoreColor = score > 74 ? "text-green-400 border-green-700 bg-green-900/20" : score > 49 ? "text-yellow-300 border-yellow-700 bg-yellow-900/20" : "text-red-400 border-red-700 bg-red-900/20";
 
   useEffect(() => {
     const loadResume = async () => {
       const blob = await fs.read(imagePath);
       if (!blob) return;
-      setResumeUrl(URL.createObjectURL(blob));
+      const url = URL.createObjectURL(blob);
+      setResumeUrl(url);
     };
 
     loadResume();
   }, [fs, imagePath]);
 
   return (
-    <div className="bg-[#111114] border border-gray-800 rounded-2xl p-4 h-[410px] w-full flex flex-col transition-all duration-300 hover:shadow-lg">
-      <div className="flex justify-between items-start mb-3">
-        <div>
-          <p className="text-xs text-gray-400">{companyName || "Company"}</p>
-          <h3 className="text-sm font-semibold text-white mt-1">{jobTitle || "Role"}</h3>
+    <div className="resume-card animate-in fade-in duration-1000">
+      <Link to={`/resume/${id}`} className="flex flex-col gap-6 sm:gap-8">
+        <div className="resume-card-header">
+          <div className="flex flex-col gap-2">
+            {companyName && <h2 className="!text-black !text-xl sm:!text-2xl font-bold break-words">{companyName}</h2>}
+            {jobTitle && <h3 className="text-sm sm:text-base break-words text-gray-500">{jobTitle}</h3>}
+            {!companyName && !jobTitle && <h2 className="!text-black !text-xl sm:!text-2xl font-bold">Resume</h2>}
+          </div>
+          <div className="flex-shrink-0">
+            <ScoreCircle score={feedback.overallScore} />
+          </div>
         </div>
 
-        <div className={`w-9 h-9 rounded-full border flex items-center justify-center text-xs font-semibold ${scoreColor}`}>
-          {score}
-        </div>
-      </div>
-
-      <div className="flex-1 bg-gray-900 rounded-xl overflow-hidden min-h-0 mb-4">
-        {resumeUrl ? (
-          <img src={resumeUrl} className="w-full h-full object-cover" alt="resume" />
-        ) : (
-          <div className="w-full h-full" />
+        {resumeUrl && (
+          <div className="gradient-border animate-in fade-in duration-1000">
+            <div className="w-full h-full">
+              <img
+                src={resumeUrl}
+                alt="resume"
+                className="w-full h-[220px] sm:h-[280px] lg:h-[240px] xl:h-[220px] object-cover object-top rounded-xl"
+              />
+            </div>
+          </div>
         )}
-      </div>
+      </Link>
 
-      <div className="mt-auto flex items-center justify-between gap-3 pt-1">
+      {score < 75 && (
         <button
-          onClick={() => navigate("/premium#plans")}
-          className="w-auto min-w-[122px] bg-[#3b3b3f] text-white border border-gray-500 px-3.5 py-1.5 rounded-full text-xs font-medium hover:bg-[#4a4a50] transition"
+          onClick={() => navigate(`/resume/${resume.id}`)}
+          className="mt-4 w-full bg-black text-white py-2 rounded-xl hover:bg-gray-800 transition"
         >
-          Improve ATS
+          Improve ATS Score →
         </button>
-
-        <button
-          onClick={() => onDelete(resume)}
-          className="w-7 h-7 rounded-full bg-[#1c1c1f] border border-gray-700 hover:bg-[#2a2a2e] transition flex items-center justify-center"
-          aria-label="Delete resume"
-        >
-          <img src="/icons/cross.svg" alt="delete" className="w-3 h-3" />
-        </button>
-      </div>
+      )}
     </div>
   );
 };
