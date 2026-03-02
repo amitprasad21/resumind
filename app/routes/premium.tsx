@@ -1,6 +1,5 @@
 import type { Route } from "./+types/premium";
 import { Link } from "react-router";
-import Navbar from "~/components/Navbar";
 import PremiumPlans from "~/components/PremiumPlans";
 import { trackPlanClick } from "~/lib/track";
 
@@ -14,7 +13,13 @@ const PREMIUM_ROLE = "Your Target Role";
 const PREMIUM_ATS = 0;
 
 export default function PremiumPage() {
-  const handleWhatsApp = (planName: string, price: number, company: string, role: string, atsScore: number) => {
+  const handleWhatsApp = (
+    planName: string,
+    price: number,
+    company: string,
+    role: string,
+    atsScore: number
+  ) => {
     trackPlanClick(planName, company, role, atsScore);
 
     const message = `Hi, I am interested in ${planName} (₹${price})\nCompany: ${company}\nRole: ${role}\nCurrent ATS Score: ${atsScore}`;
@@ -23,25 +28,29 @@ export default function PremiumPage() {
   };
 
   return (
-    <main className="bg-[url('/images/bg-main.svg')] bg-cover min-h-screen">
-      <Navbar />
-      <section className="main-section">
-        <div className="page-heading py-8 sm:py-10">
-          <h1>Professional Resume Optimization Plans</h1>
-          <h2>Choose a package to target an 80+ ATS score with expert support.</h2>
-        </div>
+    <main className="min-h-screen flex flex-col items-center px-6 py-24 bg-gradient-to-br from-[#f5f6fa] to-[#e4e7f0]">
+      <div className="text-center max-w-2xl">
+        <h1 className="text-4xl font-bold text-gray-900">
+          Professional Resume Optimization Plans
+        </h1>
 
+        <p className="mt-4 text-gray-600 text-base sm:text-lg">
+          Choose a package to target an 80+ ATS score with expert support.
+        </p>
+      </div>
+
+      <div className="mt-10 md:mt-16 max-w-5xl w-full">
         <PremiumPlans
           company={PREMIUM_COMPANY}
           role={PREMIUM_ROLE}
           atsScore={PREMIUM_ATS}
           handleWhatsApp={handleWhatsApp}
         />
+      </div>
 
-        <Link to="/upload" className="primary-button w-fit px-6 sm:px-8 mt-4">
-          Analyze Another Resume
-        </Link>
-      </section>
+      <Link to="/upload" className="primary-button w-fit px-6 sm:px-8 mt-10">
+        Analyze Another Resume
+      </Link>
     </main>
   );
 }
