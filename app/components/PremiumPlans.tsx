@@ -6,9 +6,12 @@ const plans = [
     price: 299,
     features: [
       "80+ ATS Score",
+      "ATS-Friendly Formatting",
       "Role/Company Optimized",
+      "Keyword Optimization",
+      "1 Resume Template",
       "10–12 Hours Delivery",
-      "1:1 Consultation",
+      
     ],
   },
   {
@@ -16,10 +19,13 @@ const plans = [
     price: 499,
     popular: true,
     features: [
-      "80+ ATS Score",
+      "85+ ATS Score",
+      "Advanced Keyword Optimization",
+      "Role-Specific Resume Customization",
       "LinkedIn Optimization",
-      "LinkedIn Strategy",
+      "Professional Cover Letter",
       "3–5 Hours Delivery",
+      "Priority Support",
     ],
   },
   {
@@ -27,12 +33,17 @@ const plans = [
     price: 999,
     features: [
       "90+ ATS Score Target",
-      "Deep Resume Rewrite",
+      "Deep Resume Rewrite ",
+      "Company-Specific Optimization",
+      "LinkedIn Profile + Strategy",
+      "Premium Cover Letter",
+      "Multiple Resume Templates",
+      "1:1 Consultation Call",
       "Priority Delivery (2–3 hrs)",
+      
     ],
   },
 ];
-
 type Props = {
   company: string;
   role: string;
