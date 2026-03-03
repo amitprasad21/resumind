@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const plans = [
   {
@@ -44,6 +44,7 @@ type Props = {
     role: string,
     atsScore: number
   ) => void;
+  variant?: "grid" | "carousel";
 };
 
 export default function PremiumPlans({
@@ -51,19 +52,9 @@ export default function PremiumPlans({
   role,
   atsScore,
   handleWhatsApp,
+  variant = "carousel",
 }: Props) {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [slotsLeft, setSlotsLeft] = useState(3);
-
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollRef.current) return;
-
-    const scrollAmount = 320;
-    scrollRef.current.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
-      behavior: "smooth",
-    });
-  };
 
   useEffect(() => {
     const today = new Date().toDateString();
@@ -81,70 +72,134 @@ export default function PremiumPlans({
   }, []);
 
   return (
-    <div className="relative mt-10 w-full pb-24 md:pb-0">
-      <button
-        onClick={() => scroll("left")}
-        className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-10 h-10 items-center justify-center z-10"
-        aria-label="Scroll plans left"
-      >
-        ←
-      </button>
+    <>
+      {/* ================= DESKTOP GRID (Premium Page) ================= */}
+      {variant === "grid" && (
+        <div className="hidden md:grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {plans.map((plan) => (
+            <div
+              key={plan.name}
+              className="relative bg-white border rounded-2xl p-6 shadow-md flex flex-col justify-between hover:-translate-y-2 hover:shadow-lg transition-all duration-300"
+            >
+              {plan.popular && (
+                <span className="absolute top-3 right-3 bg-black text-white text-xs px-3 py-1 rounded-full">
+                  Most Popular
+                </span>
+              )}
 
-      <button
-        onClick={() => scroll("right")}
-        className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-10 h-10 items-center justify-center z-10"
-        aria-label="Scroll plans right"
-      >
-        →
-      </button>
+              <div>
+                <h3 className="text-xl font-semibold">{plan.name}</h3>
+                <p className="text-3xl font-bold mt-2">₹{plan.price}</p>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth md:px-12"
-      >
+                <p className="text-xs text-red-500 font-semibold mt-2">
+                  Only {slotsLeft} slots left today
+                </p>
+
+                <ul className="mt-5 space-y-2 text-sm text-gray-600">
+                  {plan.features.map((feature) => (
+                    <li key={feature}>✔ {feature}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                onClick={() =>
+                  handleWhatsApp(plan.name, plan.price, company, role, atsScore)
+                }
+                className="mt-6 w-full bg-black text-white py-2.5 rounded-lg hover:bg-gray-800 transition"
+              >
+                Get Optimized →
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ================= CAROUSEL (Resume Page + Mobile) ================= */}
+      <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar w-full gap-4">
         {plans.map((plan) => (
           <div
             key={plan.name}
-            className="min-w-[280px] md:min-w-[320px] bg-white border rounded-2xl p-6 relative shadow-md transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+            className="snap-center shrink-0 w-full px-4"
           >
-            {plan.popular && (
-              <span className="absolute top-3 right-3 bg-black text-white text-xs px-2 py-1 rounded-full">
-                Most Popular
-              </span>
-            )}
+            <div className="relative bg-white border rounded-2xl p-6 shadow-md flex flex-col justify-between h-[80vh]">
+              {plan.popular && (
+                <span className="absolute top-3 right-3 bg-black text-white text-xs px-3 py-1 rounded-full">
+                  Most Popular
+                </span>
+              )}
 
-            <h3 className="text-xl font-semibold">{plan.name}</h3>
-            <p className="text-3xl font-bold mt-2">₹{plan.price}</p>
-            <p className="text-xs text-red-500 font-semibold mt-1">
-              Only {slotsLeft} slots left today
-            </p>
+              <div>
+                <h3 className="text-lg font-semibold">{plan.name}</h3>
+                <p className="text-2xl font-bold mt-2">₹{plan.price}</p>
 
-            <ul className="mt-4 space-y-2 text-sm text-gray-600">
-              {plan.features.map((feature) => (
-                <li key={feature}>✔ {feature}</li>
-              ))}
-            </ul>
+                <p className="text-xs text-red-500 font-semibold mt-2">
+                  Only {slotsLeft} slots left today
+                </p>
 
-            <button
-              onClick={() =>
-                handleWhatsApp(plan.name, plan.price, company, role, atsScore)
-              }
-              className="mt-6 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
-            >
-              Get Optimized →
-            </button>
+                <ul className="mt-5 space-y-2 text-sm text-gray-600">
+                  {plan.features.map((feature) => (
+                    <li key={feature}>✔ {feature}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <button
+                onClick={() =>
+                  handleWhatsApp(plan.name, plan.price, company, role, atsScore)
+                }
+                className="w-full bg-black text-white py-2.5 rounded-lg hover:bg-gray-800 transition"
+              >
+                Get Optimized →
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t p-4 shadow-lg z-50">
-        <button
-          onClick={() => handleWhatsApp("Pro", 699, company, role, atsScore)}
-          className="w-full bg-black text-white py-3 rounded-xl font-semibold"
-        >
-          Get 80+ ATS Score – ₹699 →
-        </button>
-      </div>
-    </div>
+      {/* ================= DESKTOP CAROUSEL (Resume Page Only) ================= */}
+      {variant === "carousel" && (
+        <div className="hidden md:flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar w-full gap-6">
+          {plans.map((plan) => (
+            <div
+              key={plan.name}
+              className="snap-center shrink-0 w-[300px]"
+            >
+              <div className="relative bg-white border rounded-2xl p-6 shadow-md flex flex-col justify-between h-[480px] hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                {plan.popular && (
+                  <span className="absolute top-3 right-3 bg-black text-white text-xs px-3 py-1 rounded-full">
+                    Most Popular
+                  </span>
+                )}
+
+                <div>
+                  <h3 className="text-lg font-semibold">{plan.name}</h3>
+                  <p className="text-2xl font-bold mt-2">₹{plan.price}</p>
+
+                  <p className="text-xs text-red-500 font-semibold mt-2">
+                    Only {slotsLeft} slots left today
+                  </p>
+
+                  <ul className="mt-5 space-y-2 text-sm text-gray-600">
+                    {plan.features.map((feature) => (
+                      <li key={feature}>✔ {feature}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() =>
+                    handleWhatsApp(plan.name, plan.price, company, role, atsScore)
+                  }
+                  className="w-full bg-black text-white py-2.5 rounded-lg hover:bg-gray-800 transition"
+                >
+                  Get Optimized →
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 }

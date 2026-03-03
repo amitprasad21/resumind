@@ -17,8 +17,6 @@ export default function Home() {
   const navigate = useNavigate();
   const [resumes, setResumes] = useState<Resume[]>([]);
   const [loadingResumes, setLoadingResumes] = useState(false);
-  const [deletedResume, setDeletedResume] = useState<Resume | null>(null);
-  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!auth.isAuthenticated) navigate("/auth?next=/");
@@ -41,10 +39,10 @@ export default function Home() {
   }, [kv]);
 
   return (
-    <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+    <main className="bg-[url('/images/bg-main.svg')] bg-cover min-h-screen">
       <Navbar />
 
-      <section className="main-section">
+      <section className="main-section pb-32 lg:pb-0">
         <div className="page-heading py-8 sm:py-12">
           <h1>Track Your Applications & Resume Ratings</h1>
           {!loadingResumes && resumes?.length === 0 ? (
@@ -62,6 +60,7 @@ export default function Home() {
 
         {!loadingResumes && resumes.length > 0 && (
           <div className="w-full">
+            {/* Mobile Slider */}
             <div className="lg:hidden flex overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth w-full">
               {resumes.map((resume) => (
                 <div key={resume.id} className="snap-center shrink-0 w-full px-2">
@@ -70,6 +69,7 @@ export default function Home() {
               ))}
             </div>
 
+            {/* Desktop Grid */}
             <div className="hidden lg:grid lg:grid-cols-4 gap-6 w-full">
               {resumes.map((resume) => (
                 <ResumeCard key={resume.id} resume={resume} />
@@ -88,7 +88,49 @@ export default function Home() {
             </Link>
           </div>
         )}
+
+    {/* ================= RESPONSIVE BOTTOM CTA ================= */}
+
+<div className="mt-16 mb-12 lg:mt-24 lg:mb-20 flex justify-center">
+  <Link
+    to="/premium"
+    className="
+      px-8 py-3
+      lg:px-12 lg:py-4
+      bg-white text-black
+      rounded-full
+      text-sm lg:text-base
+      font-semibold
+      shadow-md
+      border border-gray-200
+      transition-all duration-300 ease-out
+      hover:-translate-y-1
+      hover:shadow-xl
+      hover:bg-gray-100
+      active:scale-95
+    "
+  >
+    Get Your Resume Optimized →
+  </Link>
+</div>
+
       </section>
+
+      {/* Animation */}
+      <style>
+        {`
+          @keyframes fadeUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}
+      </style>
     </main>
   );
 }
